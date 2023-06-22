@@ -1,0 +1,13 @@
+{
+  "loginSuccess": "Logged in successfully",
+  "LogOut": "Log Out",
+  "LogIn": "Log In",
+  "Ok": "Ok",
+  "Cancel": "Cancel",
+  "tLogInCSD": "Log in to CSD Scheduling",
+  "lHome": "Home",
+  "lSchedule": "Schedule",
+  "lOffers": "Offers",
+  "lMessages": "Messages",
+  "bLogin": "Sign in with Azure AD"
+}
