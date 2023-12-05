@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../generated/l10n.dart';
 import '../config/colors.dart';
+import '../services/api_requests/post_login.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -53,6 +54,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Text(S.current.bLogin,
                         style: const TextStyle(color: kPrimaryWhiteColor)),
+                  ],
+                ),
+              )),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 20, left: 25, right: 25),
+          child: TextButton(
+              onPressed: () {
+                postLogin(context);
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: kPrimaryBlueColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+              ),
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: SvgPicture.asset(
+                        'assets/icons/winlogo.svg',
+                        colorFilter: const ColorFilter.mode(
+                            kPrimaryWhiteColor, BlendMode.srcIn),
+                      ),
+                    ),
+                    const Text('Login',
+                        style: TextStyle(color: kPrimaryWhiteColor)),
                   ],
                 ),
               )),

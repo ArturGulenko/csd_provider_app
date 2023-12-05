@@ -3,21 +3,25 @@ import 'package:http/http.dart' as https;
 import 'package:http/http.dart';
 
 import '../config/endpoints.dart';
-import 'add_auth.dart';
 
 class ApiService {
-  final String _baseUrl = "https://$apiBaseUrl";
-  final Map<String, String> _headersWithAuth = {
+  static final String _baseUrl = "https://$apiBaseUrl";
+  static String token='';
+  static final Map<String, String> _headersWithAuth = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': AzureAuthService.token!,
+    'Authorization': token,
   };
-  final Map<String, String> _headersWithoutAuth = {
+  static final Map<String, String> _headersWithoutAuth = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
   };
 
-  Future<Response> getWithAuth({required String endpoint, Map<String, String>? queryParameters} ) {
+  static void setToken(String token) {
+    _headersWithAuth['Authorization'] = token;
+  }
+
+  static Future<Response> getWithAuth({required String endpoint, Map<String, String>? queryParameters} ) {
     var url = Uri.https(apiBaseUrl, endpoint, queryParameters);
     if (kDebugMode) {
       print(url);
@@ -28,7 +32,7 @@ class ApiService {
     );
   }
 
-  Future<Response> postWithAuth({required String endpoint, required String body}) {
+  static Future<Response> postWithAuth({required String endpoint, required String body}) {
     if (kDebugMode) {
       print('$_baseUrl$endpoint');
     }
@@ -39,7 +43,7 @@ class ApiService {
     );
   }
 
-  Future<Response> postWithoutAuth({required String endpoint, required String body}) {
+  static Future<Response> postWithoutAuth({required String endpoint, required String body}) {
     if (kDebugMode) {
       print('$_baseUrl$endpoint');
     }

@@ -7,7 +7,7 @@ Future<bool> getAccountRequest(context) async {
   bool isLogin = false;
 
   try {
-    var response = await ApiService().getWithAuth(endpoint: account);
+    var response = await ApiService.getWithAuth(endpoint: account);
     if (kDebugMode) {
       print(response.body);
     }

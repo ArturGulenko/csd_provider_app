@@ -3,28 +3,30 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import '../../config/endpoints.dart';
-import '../../models/Appointment.dart';
 import '../api_service.dart';
 
-Future<List<Appointment>> getRemaindersRequest(context) async {
-  List<Appointment> appointments = [];
-  bool isLogin = false;
+Future<int> getRemaindersRequest(context, String status, String date) async {
+  int count = 0;
 
   Map<String, String> queryParameters = {
     "page": '1',
-    "sort": "",
-    "limit": '10',
-    "event_date": "2023-06-23",
+    "sort": "-AppointmentDates.appointment_date",
+    "limit": '2',
+    "my_clients": "false",
+    "statuses": status,
+    "event_date:from": date,
+    "event_date:to": date,
   };
 
   try {
-    var response = await ApiService()
+    var response = await ApiService
         .getWithAuth(endpoint: remainders, queryParameters: queryParameters);
     if (kDebugMode) {
       print(response.body);
     }
     if (response.statusCode == 200) {
-      appointments = await compute(parseAppointment, response.body);
+      print(jsonDecode(response.body)['pagination']['count']);
+      count = jsonDecode(response.body)['pagination']['count'];
     }
     if (response.statusCode == 401) {}
     if (response.statusCode != 401 && response.statusCode != 200) {}
@@ -33,12 +35,6 @@ Future<List<Appointment>> getRemaindersRequest(context) async {
       print(error);
     }
   }
-  print(appointments.length);
-  return appointments;
+  return count;
 }
 
-List<Appointment> parseAppointment(String responseBody) {
-  final parsed = jsonDecode(responseBody)['data'].cast<Map<String, dynamic>>();
-  print("parsed");
-  return parsed.map<Appointment>((json) => Appointment.fromJson(json)).toList();
-}

@@ -1,8 +1,8 @@
 import 'package:csd_provider_app/app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
-import 'app/config/generated_routes.dart';
 import 'app/config/routes.dart';
 import 'app/config/themes.dart';
 import 'app/models/Appointment.dart';
@@ -12,7 +12,8 @@ import 'generated/l10n.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  S.load(const Locale('en'));
+  initializeDateFormatting("en_US", null);
+  S.load(const Locale('en_US'));
   runApp(const MyApp());
 }
 
