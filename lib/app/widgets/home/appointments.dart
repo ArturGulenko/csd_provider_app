@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
 
-import '../../services/api_requests/get_remainders.dart';
+import '../../services/api_requests/get_appointments.dart';
 
-class Reminders extends StatefulWidget {
+class Appointments extends StatefulWidget {
   final String title;
-  final String status;
+  final bool isActive;
   final String dateStart;
   final String dateEnd;
+  final bool? isConverted;
   final Color color;
 
-  const Reminders(
+  const Appointments(
       {super.key,
       required this.title,
-      required this.status,
+      required this.isActive,
       required this.dateStart,
       required this.color,
-      required this.dateEnd});
+      required this.dateEnd,
+      this.isConverted});
 
   @override
-  State<Reminders> createState() => _RemindersState();
+  State<Appointments> createState() => _AppointmentsState();
 }
 
-class _RemindersState extends State<Reminders> {
+class _AppointmentsState extends State<Appointments> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
       child: FutureBuilder<dynamic>(
-          future: getRemaindersRequest(
+          future: getAppointmentsRequest(
             context,
-            widget.status,
+            widget.isActive,
             widget.dateStart,
             widget.dateEnd,
+            widget.isConverted,
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

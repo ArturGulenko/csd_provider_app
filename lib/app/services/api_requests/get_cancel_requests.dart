@@ -5,22 +5,18 @@ import 'package:flutter/foundation.dart';
 import '../../config/endpoints.dart';
 import '../api_service.dart';
 
-Future<int> getRemaindersRequest(context, String status, String dateStart, String dateEnd) async {
+Future<int> getCancelRequest(context, String status) async {
   int count = 0;
 
   Map<String, String> queryParameters = {
     "page": '1',
-    "sort": "-AppointmentDates.appointment_date",
     "limit": '2',
-    "my_clients": "false",
-    "statuses": status,
-    "event_date:from": dateStart,
-    "event_date:to": dateEnd,
+    "status": status,
   };
 
   try {
     var response = await ApiService.getWithAuth(
-        endpoint: remainders, queryParameters: queryParameters);
+        endpoint: cancelRequests, queryParameters: queryParameters);
     if (response.statusCode == 200) {
       count = jsonDecode(response.body)['pagination']['count'];
     }

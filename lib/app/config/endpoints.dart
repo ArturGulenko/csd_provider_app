@@ -1,4 +1,11 @@
 String apiBaseUrl = 'csdtest.seriousdevelopment.com';
+// String apiBaseUrl = 'scheduling.csd.me';
 String login = "/api/auth/login";
 String account = "/api/account";
 String remainders = "/api/reminders";
+String clients = "/api/clients";
+String providers = "/api/providers";
+String schedulers = "/api/schedulers";
+String scheduling = "/api/scheduling";
+String cancelRequests = "/api/scheduling/requests/cancel";
+String modifyRequests = "/api/scheduling/requests/modify";

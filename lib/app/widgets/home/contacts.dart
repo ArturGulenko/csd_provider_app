@@ -1,38 +1,31 @@
+import 'package:csd_provider_app/app/services/api_requests/get_shedulers.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/api_requests/get_remainders.dart';
+import '../../services/api_requests/get_clients.dart';
+import '../../services/api_requests/get_providers.dart';
 
-class Reminders extends StatefulWidget {
+class Contacts extends StatefulWidget {
   final String title;
-  final String status;
-  final String dateStart;
-  final String dateEnd;
-  final Color color;
+  final String type;
 
-  const Reminders(
+
+  const Contacts(
       {super.key,
-      required this.title,
-      required this.status,
-      required this.dateStart,
-      required this.color,
-      required this.dateEnd});
+        required this.title,
+        required this.type,
+      });
 
   @override
-  State<Reminders> createState() => _RemindersState();
+  State<Contacts> createState() => _ContactsState();
 }
 
-class _RemindersState extends State<Reminders> {
+class _ContactsState extends State<Contacts> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
       child: FutureBuilder<dynamic>(
-          future: getRemaindersRequest(
-            context,
-            widget.status,
-            widget.dateStart,
-            widget.dateEnd,
-          ),
+          future: widget.type == 'clients' ? getClientsRequest(context, true) :widget.type == 'providers'? getProvidersRequest(context,true): getSchedulersRequest(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -53,8 +46,7 @@ class _RemindersState extends State<Reminders> {
                       onTap: () {},
                       child: Text(
                         widget.title,
-                        style: TextStyle(
-                          color: widget.color,
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),

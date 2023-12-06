@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
 
-import '../../services/api_requests/get_remainders.dart';
+import '../../services/api_requests/get_cancel_requests.dart';
 
-class Reminders extends StatefulWidget {
+class CancelRequests extends StatefulWidget {
   final String title;
   final String status;
-  final String dateStart;
-  final String dateEnd;
   final Color color;
 
-  const Reminders(
+  const CancelRequests(
       {super.key,
       required this.title,
       required this.status,
-      required this.dateStart,
-      required this.color,
-      required this.dateEnd});
+      required this.color});
 
   @override
-  State<Reminders> createState() => _RemindersState();
+  State<CancelRequests> createState() => _CancelRequestsState();
 }
 
-class _RemindersState extends State<Reminders> {
+class _CancelRequestsState extends State<CancelRequests> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
       child: FutureBuilder<dynamic>(
-          future: getRemaindersRequest(
+          future: getCancelRequest(
             context,
             widget.status,
-            widget.dateStart,
-            widget.dateEnd,
           ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,7 +50,7 @@ class _RemindersState extends State<Reminders> {
                         style: TextStyle(
                           color: widget.color,
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -64,14 +58,14 @@ class _RemindersState extends State<Reminders> {
                       appointments.toString(),
                       style: const TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 );
               } else {
                 return const Center(
-                  child: Text('No data or error occurred'),
+                  child: Text('Error'),
                 );
               }
             }

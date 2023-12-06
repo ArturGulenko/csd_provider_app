@@ -8,9 +8,6 @@ Future<bool> getAccountRequest(context) async {
 
   try {
     var response = await ApiService.getWithAuth(endpoint: account);
-    if (kDebugMode) {
-      print(response.body);
-    }
     if (response.statusCode == 200) {
       isLogin = true;
     }
